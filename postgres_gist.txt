@@ -1,0 +1,23 @@
+https://gist.github.com/Pritchard45/eccf7afeb02b801dc825aa011e831ae3
+
+Report bugs to <pgsql-bugs@postgresql.org>.
+(base) Alexanders-MacBook-Pro:sep-database alexanderpritchard$ creatdb -U postgres -w library
+-bash: creatdb: command not found
+(base) Alexanders-MacBook-Pro:sep-database alexanderpritchard$ createdb -U postgres -w library
+(base) Alexanders-MacBook-Pro:sep-database alexanderpritchard$ psql -f /Users/alexanderpritchard/bloc/code/sep-database/library-data.sql library postgres
+CREATE TABLE
+INSERT 0 4
+(base) Alexanders-MacBook-Pro:sep-database alexanderpritchard$ psql library postgres
+psql (11.5)
+Type "help" for help.
+
+library=# SELECT * from books;
+  id  |                  title                   |       author
+------+------------------------------------------+---------------------
+ 1259 | Eloquent Ruby                            | Russell A. Olson
+ 1593 | JavaScript: The Good Parts               | Douglas Crockford
+ 8982 | Designing Object-Oriented Software       | Rebecca Wirfs-Brock
+ 7265 | Practical Object-Oriented Design in Ruby | Sandi Metz
+(4 rows)
+
+library=# 
