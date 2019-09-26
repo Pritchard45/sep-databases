@@ -62,7 +62,8 @@ FROM dogs
 
         SELECT *
         FROM dogs
-        WHERE breed NOT LIKE '%shepherd';
+        WHERE breed NOT LIKE '%shepherd%';
+        ** added another % so that if the word appears anywhere in the string it will not be included.
 
     e) Display the id, age, weight, and breed of all dogs that are either over 60lbs or Great Danes.
 
@@ -122,7 +123,9 @@ VALUES
     a) Display all the information about all of the available cats.
 
         SELECT *
-        FROM cats;
+        FROM cats
+        WHERE adoption_date IS NULL;
+        ** should return cats that do not have an adoption date in the system.
 
     b) Display the name and sex of all cats who are 7 years old.
 
