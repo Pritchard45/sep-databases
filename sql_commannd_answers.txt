@@ -91,7 +91,7 @@ Real world examples must be distinct from those used in the text.
 
      b) Someone has just checked out one of the books. Change the available copies column to 1 fewer.
 
-        UPDATE library SET available_copies=1341
+        UPDATE library SET available_copies= available_copies - 1  ***implemented better practice ***
           WHERE isbn=9781982770567;
 
      c) Now one of the books has been added to the banned books list. Remove it from the table.
