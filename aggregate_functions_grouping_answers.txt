@@ -1,0 +1,223 @@
+1) List 5 aggregate functions and explain, in your own words, what they are for. Include a real world example for each.
+
+      SUM Calculates the sum of a column in a table.
+        SELECT SUM(students)
+          FROM class;
+      MAX Find the maximum value of a column in a table.
+        SELECT MAX(test_score)
+          FROM class;
+      MIN Find the minimum value of a column in a table.
+        SELECT MIN(test_score)
+          FROM class;
+      AVG Calculates the average of a column in a table.
+        SELECT AVG(test_score)
+          FROM class;
+      COUNT returns the number of rows in a table.
+        SELECT COUNT(attended)
+          FROM class;
+
+   If you can’t list these from memory, do these flashcards until you can!
+
+2) Given this donations table, write queries and include the output for the following:
+
+  a) The total of all donations received in the past year.
+
+      SELECT SUM(amount) FROM donations;
+
+      | sum      |
+      | -------- |
+      | 993.0000 |
+
+      ---
+  b) The total donations over time per donor (e.g. if Tanysha has donated 3 times with the amounts $25, $30, and $50,
+     then the result would be | Tanysha | 105 |).
+
+      SELECT donor, SUM(amount)
+      FROM donations
+      GROUP BY donor;
+
+      | donor      | sum      |
+      | ---------- | -------- |
+      | Samwell    | 20.0000  |
+      | Daario     | 10.0000  |
+      | Brienne    | 75.0000  |
+      | Tyrion     | 120.0000 |
+      | Petyr      | 70.0000  |
+      | Melisandre | 45.0000  |
+      | Bran       | 25.0000  |
+      | Tormund    | 50.0000  |
+      | Ygritte    | 30.0000  |
+      | Gilly      | 7.0000   |
+      | Jon        | 25.0000  |
+      | Arya       | 60.0000  |
+      | Theon      | 20.0000  |
+      | Bronn      | 20.0000  |
+      | Margaery   | 120.0000 |
+      | Missandei  | 90.0000  |
+      | Sansa      | 33.0000  |
+      | Daenerys   | 173.0000 |
+
+      ---
+  c) The average donation per donor.
+
+
+      SELECT donor, AVG(amount)
+      FROM donations
+      GROUP BY donor;
+
+      | donor      | avg                  |
+      | ---------- | -------------------- |
+      | Samwell    | 20.0000000000000000  |
+      | Daario     | 10.0000000000000000  |
+      | Brienne    | 75.0000000000000000  |
+      | Tyrion     | 40.0000000000000000  |
+      | Petyr      | 70.0000000000000000  |
+      | Melisandre | 45.0000000000000000  |
+      | Bran       | 25.0000000000000000  |
+      | Tormund    | 50.0000000000000000  |
+      | Ygritte    | 30.0000000000000000  |
+      | Gilly      | 7.0000000000000000   |
+      | Jon        | 25.0000000000000000  |
+      | Arya       | 20.0000000000000000  |
+      | Theon      | 10.0000000000000000  |
+      | Bronn      | 20.0000000000000000  |
+      | Margaery   | 120.0000000000000000 |
+      | Missandei  | 22.5000000000000000  |
+      | Sansa      | 33.0000000000000000  |
+      | Daenerys   | 86.5000000000000000  |
+
+      ---
+  d) The number of donations over $100.
+
+      SELECT COUNT(amount) FROM donations WHERE amount > 100;
+
+      | count |
+      | ----- |
+      | 2     |
+
+      ---
+  e) The largest donation received in a single instance from a single donor.
+
+      SELECT  MAX(amount) FROM donations;
+
+      | max      |
+      | -------- |
+      | 120.0000 |
+
+      ---
+  f) The smallest donation received.
+
+      SELECT  MIN(amount) FROM donations;
+
+      | min    |
+      | ------ |
+      | 5.0000 |
+
+
+3)How would you determine the display order of data returned by your SELECT statement?
+
+4) What is a real world situation where you would use OFFSET?
+
+    When you need to obtain the data from a specific start date.
+
+5) Why is it important to use ORDER BY when limiting your results?
+
+    LIMIT only returns the top number of results that are asked for. So in order to get the correct rows the table needs to be in order.
+
+6) What is the difference between HAVING and WHERE?
+
+    HAVING focuses on groups while WHERE focuses on specific rows. HAVING filters groups after aggregations and WHERE filters rows before aggregation.
+
+7) Correct the following SELECT statement:
+
+     SELECT id, SUM (amount)
+     FROM payment
+     GROUP BY id
+     HAVING SUM (amount) > 200
+     ORDER BY id;
+
+8) Follow the instructions for the scenarios below:
+
+  a) Given this cats table from the previous checkpoint, list all cats organized by intake date.
+
+      SELECT name, intake_date
+      FROM cats
+      ORDER BY intake_date DESC;
+
+      | name     | intake_date              |
+      | -------- | ------------------------ |
+      | Nala     | 2016-01-12T00:00:00.000Z |
+      | Azul     | 2016-01-11T00:00:00.000Z |
+      | Victoire | 2016-01-11T00:00:00.000Z |
+      | Mushi    | 2016-01-09T00:00:00.000Z |
+      | Seashell | 2016-01-09T00:00:00.000Z |
+
+      All cats organized by intake date from most recent.
+
+  b) Given this adoptions table, determine the 5 most recent adoptions to be featured for a social
+     media promotion called "Happy Tails" which lists recent successful adoptions.
+
+      SELECT *
+      FROM adoptions
+      ORDER BY date DESC
+      LIMIT 5;
+
+      | id    | adopter          | cat         | date                     | fee     |
+      | ----- | ---------------- | ----------- | ------------------------ | ------- |
+      | 10093 | Hermione Granger | Crookshanks | 1993-08-31T00:00:00.000Z | 10.0000 |
+      | 10054 | Arabella Figg    | Mr. Tibbles | 1990-02-18T00:00:00.000Z | 30.0000 |
+      | 10055 | Arabella Figg    | Mr. Paws    | 1990-02-18T00:00:00.000Z | 30.0000 |
+      | 10040 | Arabella Figg    | Snowy       | 1989-11-29T00:00:00.000Z | 35.0000 |
+      | 10037 | Arabella Figg    | Tufty       | 1988-05-03T00:00:00.000Z | 20.0000 |
+
+
+  c) There is a potential adopter looking for an adult female cat. In the most efficient way possible,
+     list all female cats 2 or more years old from the cats table.
+
+      SELECT *
+      FROM cats
+      WHERE gender = 'F' AND age >= 2;
+
+      | id  | name     | gender | age | intake_date              | adoption_date |
+      | --- | -------- | ------ | --- | ------------------------ | ------------- |
+      | 2   | Seashell | F      | 7   | 2016-01-09T00:00:00.000Z |               |
+
+  d) From the donations table (from problem #2), find the top 5 donors with the highest cumulative donation amounts to be honored as “Platinum Donors”.
+
+
+      SELECT DISTINCT donor, SUM(amount)
+      FROM donations
+      GROUP BY donor
+      ORDER BY 2 DESC
+      LIMIT 5;
+
+      | donor     | sum      |
+      | --------- | -------- |
+      | Daenerys  | 173.0000 |
+      | Margaery  | 120.0000 |
+      | Tyrion    | 120.0000 |
+      | Missandei | 90.0000  |
+      | Brienne   | 75.0000  |
+
+  e) From the donations table (from problem #2), find donors 6-15 with the next highest cumulative donation amounts to be honored as “Gold Donors”.
+
+      SELECT DISTINCT donor, SUM(amount)
+      FROM donations
+      GROUP BY donor
+      ORDER BY 2 DESC
+      LIMIT 10 OFFSET 5;
+
+      | donor      | sum     |
+      | ---------- | ------- |
+      | Petyr      | 70.0000 |
+      | Arya       | 60.0000 |
+      | Tormund    | 50.0000 |
+      | Melisandre | 45.0000 |
+      | Sansa      | 33.0000 |
+      | Ygritte    | 30.0000 |
+      | Bran       | 25.0000 |
+      | Jon        | 25.0000 |
+      | Bronn      | 20.0000 |
+      | Samwell    | 20.0000 |
+
+      ---
