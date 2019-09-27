@@ -84,10 +84,10 @@ Real world examples must be distinct from those used in the text.
       INSERT INTO library (isbn, title, author, genre, publishing_date, copies, available_copies)
 
       VALUES
-        (9781982770567, 'The Institute', 'Stephen King', 'contemporary fiction', 2019-09-01, 29012, 1342),
-        (9780062080233, 'American Gods', 'Neil Gaiman', 'fiction', 2001-6-19, 203930, 4443),
+        (9781982770567, 'The Institute', 'Stephen King', 'contemporary fiction', '2019-09-01', 29012, 1342),
+        (9780062080233, 'American Gods', 'Neil Gaiman', 'fiction', '2001-6-19', 203930, 4443),
         (9781422191651, 'Everything I Ever Needed To Know About Economics I Learned From Online Dating', 'Paul Oyer',
-          'self-improvement', 2014-01-07, 239483, 50000);
+          'self-improvement', '2014-01-07', 239483, 50000);
 
      b) Someone has just checked out one of the books. Change the available copies column to 1 fewer.
 
@@ -122,6 +122,8 @@ Real world examples must be distinct from those used in the text.
           (34, 'Ulysses', 1990, 'USA', 'North and South Poles of the Sun', 'Sun', FALSE, (2.15 * 10^8) ),
           (213, 'Spitzer Space Telescope', '2003', 'USA', 'Early Universe pictures in infrared light', 'Universe', TRUE, (1.10 * 10^8) );
 
+          *** added quotes around date as it needs to be input as a string ***
+
      b) Remove one of the satellites from the table since it has just been crashed into the planet.
 
         DELETE FROM spacecraft WHERE id=213;
@@ -139,9 +141,11 @@ Real world examples must be distinct from those used in the text.
 
      a) Add 3 new emails to the inbox.
 
-        (1, 'Hello', 'thisisme@hi.com', 'brucewillis@diehard.com', 'Christmas Movie', 2002-11-13, FALSE, 17),
-        (2, 'Good-bye', 'bye@bye.com', 'leo@hollywood.com', 'Hello Hello', 2019-9-13, TRUE, 27)
-        (3, 'Maybe later', 'now@later.com', 'jolly@rancher.com', 'Snickers are better', 2009-2-14, TRUE, 37);
+     INSERT INTO inbox (id, subject, sender, recipients, body, timestamp, read, chain_id) ***Also added quotes around the date.***
+
+        (1, 'Hello', 'thisisme@hi.com', 'brucewillis@diehard.com', 'Christmas Movie', '2002-11-13', FALSE, 17),
+        (2, 'Good-bye', 'bye@bye.com', 'leo@hollywood.com', 'Hello Hello', '2019-9-13', TRUE, 27)
+        (3, 'Maybe later', 'now@later.com', 'jolly@rancher.com', 'Snickers are better', '2009-2-14', TRUE, 37);
 
 
      b) You’ve just deleted one of the emails, so write a command to remove the row from the inbox table.
