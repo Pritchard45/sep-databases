@@ -116,6 +116,8 @@
 
 3)How would you determine the display order of data returned by your SELECT statement?
 
+    I would use ORDER BY.
+
 4) What is a real world situation where you would use OFFSET?
 
     When you need to obtain the data from a specific start date.
