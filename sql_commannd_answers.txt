@@ -130,7 +130,7 @@ Real world examples must be distinct from those used in the text.
 
      c) Edit another satellite because it is no longer operating and change the value to reflect that.
 
-        UPDATE spacecraft SET mission_active FALSE where id=123
+        UPDATE spacecraft SET mission_active FALSE where id=123   
 
 7) Write a command to make a new table to hold the emails in your inbox. This table should include an id, the subject line, the sender,
    any additional recipients, the body of the email, the timestamp, whether or not it’s been read, and the id of the email chain it’s in.
