@@ -70,7 +70,7 @@ Real world examples must be distinct from those used in the text.
    and available copies.
 
       CREATE TABLE library (
-        isbn integer,
+        isbn bigint,
         title text,
         author text,
         genre text,
@@ -91,7 +91,7 @@ Real world examples must be distinct from those used in the text.
 
      b) Someone has just checked out one of the books. Change the available copies column to 1 fewer.
 
-        UPDATE library SET available_copies= available_copies - 1  ***implemented better practice ***
+        UPDATE library SET available_copies= available_copies - 1
           WHERE isbn=9781982770567;
 
      c) Now one of the books has been added to the banned books list. Remove it from the table.
@@ -109,20 +109,22 @@ Real world examples must be distinct from those used in the text.
       mission text,
       orbiting_location text,
       mission_active boolean,
-      distance_from_earth float,
+      distance_from_earth float
     );
 
   In addition to the table creation, provide commands that perform the following operations:
 
      a) Add 3 non-Earth-orbiting satellites to the table.
 
-        INSERT INTO spacecraft(id, name, launch_year, country, mission, orbiting_location, mission_active, distance_from_earth)
+        INSERT INTO spacecraft (id, name, launch_year, country, mission, orbiting_location, mission_active, distance_from_earth )
+
+        VALUES
 
           (123, 'Stardust-NExT', 1999, 'USA', 'Comet investigating', 'Tempel 1', FALSE, (6.46 * 10^8) ),
           (34, 'Ulysses', 1990, 'USA', 'North and South Poles of the Sun', 'Sun', FALSE, (2.15 * 10^8) ),
           (213, 'Spitzer Space Telescope', '2003', 'USA', 'Early Universe pictures in infrared light', 'Universe', TRUE, (1.10 * 10^8) );
 
-          *** added quotes around date as it needs to be input as a string ***
+          #added VALUES
 
      b) Remove one of the satellites from the table since it has just been crashed into the planet.
 
@@ -130,7 +132,7 @@ Real world examples must be distinct from those used in the text.
 
      c) Edit another satellite because it is no longer operating and change the value to reflect that.
 
-        UPDATE spacecraft SET mission_active FALSE where id=123
+        UPDATE spacecraft SET mission_active = FALSE where id=123;
 
 7) Write a command to make a new table to hold the emails in your inbox. This table should include an id, the subject line, the sender,
    any additional recipients, the body of the email, the timestamp, whether or not it’s been read, and the id of the email chain it’s in.
@@ -141,8 +143,12 @@ Real world examples must be distinct from those used in the text.
 
      a) Add 3 new emails to the inbox.
 
-     INSERT INTO inbox (id, subject, sender, recipients, body, timestamp, read, chain_id) ***Also added quotes around the date.***
 
+
+     INSERT INTO inbox (id, subject, sender, recipients, body, timestamp, read, chain_id)
+
+
+      VALUES
         (1, 'Hello', 'thisisme@hi.com', 'brucewillis@diehard.com', 'Christmas Movie', '2002-11-13', FALSE, 17),
         (2, 'Good-bye', 'bye@bye.com', 'leo@hollywood.com', 'Hello Hello', '2019-9-13', TRUE, 27)
         (3, 'Maybe later', 'now@later.com', 'jolly@rancher.com', 'Snickers are better', '2009-2-14', TRUE, 37);
