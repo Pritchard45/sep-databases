@@ -82,12 +82,45 @@ NOTE: Real world examples must be your own and not based on the text or previous
 7) Using this Employee schema and data, write queries to find the following information:
    All employees with their shifts if they have any. Also include any unscheduled shifts.
 
-    SELECT *
-    FROM shifts
-    LEFT OUTER JOIN scheduled_shifts
-    ON scheduled_shifts.shift_id = shifts.id
-    ORDER BY scheduled_shifts.employee_id;
+       SELECT *
+       FROM shifts
+       FULL OUTER JOIN scheduled_shifts
+       ON scheduled_shifts.shift_id = shifts.id
+       FULL OUTER JOIN employees
+       ON scheduled_shifts.employee_id = employees.id
+       ORDER BY scheduled_shifts.employee_id;
 
+    | id  | date       | start_time | end_time | employee_id | shift_id | id  | name               |
+    | --- | ---------- | ---------- | -------- | ----------- | -------- | --- | ------------------ |
+    | 2   | 1998-03-09 | 08:00:00   | 16:00:00 | 1           | 2        | 1   | Hermione Granger   |
+    | 7   | 1998-03-10 | 08:00:00   | 16:00:00 | 1           | 7        | 1   | Hermione Granger   |
+    | 12  | 1998-03-11 | 08:00:00   | 16:00:00 | 1           | 12       | 1   | Hermione Granger   |
+    | 17  | 1998-03-12 | 08:00:00   | 16:00:00 | 1           | 17       | 1   | Hermione Granger   |
+    | 22  | 1998-03-13 | 08:00:00   | 16:00:00 | 1           | 22       | 1   | Hermione Granger   |
+    | 8   | 1998-03-10 | 12:00:00   | 16:00:00 | 2           | 8        | 2   | Ronald Weasley     |
+    | 18  | 1998-03-12 | 12:00:00   | 16:00:00 | 2           | 18       | 2   | Ronald Weasley     |
+    | 3   | 1998-03-09 | 12:00:00   | 16:00:00 | 3           | 3        | 3   | Luna Lovegood      |
+    | 13  | 1998-03-11 | 12:00:00   | 16:00:00 | 3           | 13       | 3   | Luna Lovegood      |
+    | 23  | 1998-03-13 | 12:00:00   | 16:00:00 | 3           | 23       | 3   | Luna Lovegood      |
+    | 15  | 1998-03-11 | 16:00:00   | 20:00:00 | 4           | 15       | 4   | Draco Malfoy       |
+    | 20  | 1998-03-12 | 16:00:00   | 20:00:00 | 4           | 20       | 4   | Draco Malfoy       |
+    | 25  | 1998-03-13 | 16:00:00   | 20:00:00 | 4           | 25       | 4   | Draco Malfoy       |
+    | 4   | 1998-03-09 | 12:00:00   | 20:00:00 | 5           | 4        | 5   | Padma Patil        |
+    | 9   | 1998-03-10 | 12:00:00   | 20:00:00 | 5           | 9        | 5   | Padma Patil        |
+    | 14  | 1998-03-11 | 12:00:00   | 20:00:00 | 5           | 14       | 5   | Padma Patil        |
+    | 1   | 1998-03-09 | 08:00:00   | 12:00:00 | 5           | 1        | 5   | Padma Patil        |
+    | 6   | 1998-03-10 | 08:00:00   | 12:00:00 | 5           | 6        | 5   | Padma Patil        |
+    | 11  | 1998-03-11 | 08:00:00   | 12:00:00 | 5           | 11       | 5   | Padma Patil        |
+    | 19  | 1998-03-12 | 12:00:00   | 20:00:00 | 8           | 19       | 8   | Cho Chang          |
+    | 24  | 1998-03-13 | 12:00:00   | 20:00:00 | 8           | 24       | 8   | Cho Chang          |
+    | 5   | 1998-03-09 | 16:00:00   | 20:00:00 | 9           | 5        | 9   | Dean Thomas        |
+    | 10  | 1998-03-10 | 16:00:00   | 20:00:00 | 9           | 10       | 9   | Dean Thomas        |
+    | 21  | 1998-03-13 | 08:00:00   | 12:00:00 |             |          |     |                    |
+    | 16  | 1998-03-12 | 08:00:00   | 12:00:00 |             |          |     |                    |
+    |     |            |            |          |             |          | 6   | Neville Longbottom |
+    |     |            |            |          |             |          | 7   | Cedric Diggory     |
+
+    ---
 8) Using this Adoption schema and data, please write queries to retrieve the following information and include the results:
 
    a) All volunteers. If the volunteer is fostering a dog, include each dog as well.
