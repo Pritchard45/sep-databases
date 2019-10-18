@@ -1,0 +1,94 @@
+
+Student
+-
+StudentID PK integer FK >- Grades.StudentID
+Name string INDEX
+Address1 string
+email string
+
+Courses
+-
+CourseID PK integer
+Name string
+Description string
+
+Grades
+----
+StudentID Student.StudentID
+CourseID Courses.CourseID FK >- Courses.CourseID
+letter_grade char
+precent_grade float
+
+
+
+
+
+CREATE TABLE students(
+  "student_id" SERIAL PRIMARY KEY,
+  "first_name" VARCHAR(16),
+  "last_name" VARCHAR(16),
+  "address" VARCHAR(64),
+  "phone" VARCHAR(16),
+  "email" VARCHAR(32)
+);
+
+CREATE TABLE courses(
+  "course_id" SERIAL PRIMARY KEY,
+  "name" VARCHAR(64),
+  "description" VARCHAR(140)
+);
+
+
+CREATE TABLE grades(
+	"student_id" INTEGER NOT NULL,
+  	"course_id" INTEGER NOT NULL,
+  	"letter_grade" VARCHAR(1),
+  	"precent_grade" INTEGER
+);
+
+
+
+INSERT INTO students("student_id", "first_name", "last_name", "address", "phone", "email")
+VALUES
+	(34001, 'Pedro', 'Penn', '200 Blueway Street, Wolcott, CT 05332', '123-123-1234', 'vote@pedro.com'),
+    (34002, 'Sofia', 'Southberry', '1 5th Ave, New York, NY 93994', '543-543-5432', 'hi@hello.com'),
+    (34003, 'Alex', 'Tommy', '43 Elbow Circle, Altlanta, GA 21322', '123-232-2345', 'please@voteforpedro.com'),
+    (34004, 'Tina', 'Lard', '666 Backyard Street, Fort Worth, TX 21342', '666-663-4444', 'come@getdinner.com'),
+    (34005, 'Kit', 'Kat', '2 Cripsy Way, Hershey, PA 05234', '888-323-1231', 'the@bestcandy.com'),
+    (34006, 'Hamlet', 'Granger', '137 Privet Drive, New London, CT 01234', '234-123-6654', 'wizard@hogwarts.com');
+
+ INSERT INTO courses("course_id", "name", "description")
+ VALUES
+ 	(101, 'General Studies', 'Everything you might use in life.'),
+    (102, 'Herding Cats', 'This course is action packed and a tutorial of one of the hardest feats of human kind'),
+    (103, 'Making your bed', 'Learn how to fold a fittied sheet one step at a time!'),
+    (104, 'Dealing with Texans', 'Everything is not that much bigger. Just exaggerated.'),
+    (105, 'Finance', 'Writing a check? What is a check? Why do they exist?'),
+    (106, 'History', 'Why certain noises remind us of not being able to use the phone and internet at the same time'),
+    (200, 'Math', 'How to use google and find multiple calculators on the internet'),
+    (201, 'Kindness', 'How to not be narcissitic');
+
+ INSERT INTO grades("student_id", "course_id", "letter_grade", "precent_grade")
+
+ VALUES
+ (34001, 101, 'A', 96),
+ (34003, 101, 'C', 79),
+ (34003, 106, 'A', 92),
+ (34002, 102, 'A', 99),
+ (34005, 102, 'A', 100),
+ (34006, 102, 'B', 88),
+ (34002, 200, 'C', 75),
+ (34002, 201, 'D', 68),
+ (34001, 201, 'F', 50),
+ (34001, 106, 'A', 91),
+ (34004, 105, 'A', 99),
+ (34006, 105, 'B', 85),
+ (34005, 103, 'B', 88),
+ (34003, 103, 'C', 78),
+ (34001, 102, 'B', 75),
+ (34005, 101, 'F', 80),
+ (34004, 104, 'A', 100),
+ (34006, 101, 'A', 93),
+ (34003, 201, 'A', 92),
+ (34004, 201, 'F', 23),
+ (34005, 201, 'D', 68);
