@@ -1,0 +1,126 @@
+
+Real world examples must be your own and not based on the text or previous assignments.
+
+
+1) In your own words, explain the benefits of normalization. Include a real-world
+   scenario where normalization is necessary.
+
+    Redundant elimination helps places like pharmacies and dispatchers. In a dispatching
+    world you could have EMT and Police Officers all with different information.
+    Each of them could be taking a different vehicle, paired with another person, and going
+    to a different area. Based on where they go on the shift they could be staying in an area
+    that was different from where they started. Also the potential of what they could be doing is
+    different.
+
+2) List and explain the different normal forms and how they relate to one another,
+   with regard to your real-world scenario in the first question.
+
+   Pharmacy scenario
+
+    1NF - tables do not contain multiple values. If a patient has multiple medications,
+    each would be listed separately.
+
+    2NF - non-key attributes are dependent on the subset of the primary key and
+    the table is 1NF compliant. The copay attribute has zero relation with the
+    medication table. It has to do with patients insurance.
+
+    3NF - the record must be 2NF compliant and transitive functional dependencies of
+    non-prime attributes don't exist. Pharmacy's usually have a store attached. The
+    only data they need is if a sale was completed or not. So when patient table has
+    confirmed_pickup, payed_for should translate to true on the store_income table and
+    patient_insurance table. The store should have nothing but the payed_for attribute.
+
+
+
+3) This student_records table contains students and their grades in different subjects.
+   The schema is already in first normal form (1NF). Convert this schema to the third
+   normal form (3NF) using the techniques you learned in this checkpoint.
+
+    CREATE TABLE student_records (
+      "student_id"     	INTEGER,
+      "student_email"  	VARCHAR(24),
+      "student_name"   	VARCHAR(9)
+    );
+
+    CREATE TABLE professor_records (
+      "id"           	  INTEGER,
+      "professor_id"   	INTEGER,
+      "professor_name" 	VARCHAR(9)
+    );
+
+    CREATE TABLE student_grades (
+      "id"       		    INTEGER,
+      "professor_id"   	INTEGER,
+      "grade"          	VARCHAR(1)
+    );
+
+    CREATE TABLE subjects (
+      "id"              INTEGER,
+      "professor_id"   	INTEGER,
+      "subject"         VARCHAR(11)
+    );
+
+    INSERT INTO student_records
+        ("student_id", "student_email",  "student_name")
+    VALUES
+        ( 1,           'john.b20@hogwarts.edu',    'John B'),
+        ( 2,           'sarah.s20@hogwarts.edu',   'Sarah S'),
+        ( 3,           'martha.l20@hogwarts.edu',  'Martha L'),
+        ( 4,           'james.g20@hogwarts.edu',   'James G'),
+        ( 5,           'stanley.p20@hogwarts.edu', 'Stanley P');
+
+    INSERT INTO professor_records
+        ("id", "professor_id", "professor_name")
+    VALUES
+        ( 1,  2,   'William C'),
+        ( 2,  2,   'William C'),
+        ( 3,  1,   'Natalie M'),
+        ( 4,  3,   'Mark W'),
+        ( 5,  1,   'Natalie M');
+
+    INSERT INTO student_grades
+        ("id", "professor_id", "grade")
+    VALUES
+        ( 1, 2, 'A'),
+        ( 2, 2, 'C'),
+        ( 3, 1, 'A'),
+        ( 4, 3, 'B'),
+        ( 5, 1, 'B');
+
+    INSERT INTO subjects
+        ("id", "professor_id", "subject")
+    VALUES
+        ( 1,  2,    'Philosophy'),
+        ( 2,  2,    'Philosophy'),
+        ( 3,  1,    'Economics'),
+        ( 4,  3,    'Mathematics'),
+        ( 5,  1,    'Economics');
+
+---
+
+
+4) In your own words, explain the potential disadvantages of normalizing the data
+   above. What are its trade-offs? Submit your findings in the submission table and
+   discuss them with your mentor in your next session.
+
+    The time to complete is slower. In order to query the tables we must use
+    join statements.
+
+
+5) Looking at the tables you have normalized. If you need to denormalize to improve
+   query performance or speed up reporting, how would you carry out denormalization
+   for this database design? Submit potential strategies in the submission tab and
+   discuss them with your mentor in your next session.
+
+   In this table professors only teach one class. I would combine subjects to the
+   professors table to get rid of that would be join statement to save time.
+
+
+6) Explore the trade-offs between data normalization and denormalization in this
+   scenario, submit your findings in the submission tab, and discuss them with your
+   mentor in your next session.
+
+    I would keep normalized data records in this scenario. The majority of data would
+    remain the same for some time. With the offset of student_grades being a volatile
+    variable. The landscape of a school would rather be able to maintain code than
+    increasing performance as the sites database is mostly fixed.
