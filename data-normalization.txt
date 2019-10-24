@@ -36,67 +36,95 @@ Real world examples must be your own and not based on the text or previous assig
    The schema is already in first normal form (1NF). Convert this schema to the third
    normal form (3NF) using the techniques you learned in this checkpoint.
 
-    CREATE TABLE student_records (
-      "student_id"     	INTEGER,
-      "student_email"  	VARCHAR(24),
-      "student_name"   	VARCHAR(9)
-    );
 
-    CREATE TABLE professor_records (
-      "id"           	  INTEGER,
-      "professor_id"   	INTEGER,
-      "professor_name" 	VARCHAR(9)
-    );
 
-    CREATE TABLE student_grades (
-      "id"       		    INTEGER,
-      "professor_id"   	INTEGER,
-      "grade"          	VARCHAR(1)
-    );
 
-    CREATE TABLE subjects (
-      "id"              INTEGER,
-      "professor_id"   	INTEGER,
-      "subject"         VARCHAR(11)
-    );
+   CREATE TABLE student_records (
+     "student_id"     	INTEGER,
+     "student_email"  	VARCHAR(24),
+     "student_name"   	VARCHAR(9)
+   );
 
-    INSERT INTO student_records
-        ("student_id", "student_email",  "student_name")
-    VALUES
-        ( 1,           'john.b20@hogwarts.edu',    'John B'),
-        ( 2,           'sarah.s20@hogwarts.edu',   'Sarah S'),
-        ( 3,           'martha.l20@hogwarts.edu',  'Martha L'),
-        ( 4,           'james.g20@hogwarts.edu',   'James G'),
-        ( 5,           'stanley.p20@hogwarts.edu', 'Stanley P');
+ CREATE TABLE professor_records (
+     "professor_id"   	INTEGER,
+     "professor_name" 	VARCHAR(9)
+   );
 
-    INSERT INTO professor_records
-        ("id", "professor_id", "professor_name")
-    VALUES
-        ( 1,  2,   'William C'),
-        ( 2,  2,   'William C'),
-        ( 3,  1,   'Natalie M'),
-        ( 4,  3,   'Mark W'),
-        ( 5,  1,   'Natalie M');
+   CREATE TABLE student_grades (
+     "student_id"     	INTEGER,
+     "subject_id" 		INTEGER,
+     "professor_id"   	INTEGER,
+     "grade"          	VARCHAR(1)
+   );
 
-    INSERT INTO student_grades
-        ("id", "professor_id", "grade")
-    VALUES
-        ( 1, 2, 'A'),
-        ( 2, 2, 'C'),
-        ( 3, 1, 'A'),
-        ( 4, 3, 'B'),
-        ( 5, 1, 'B');
+   CREATE TABLE subjects (
+     "subject_id"     	SERIAL PRIMARY KEY,
+     "professor_id"	INTEGER,
+     "subject"         VARCHAR(11)
+   );
 
-    INSERT INTO subjects
-        ("id", "professor_id", "subject")
-    VALUES
-        ( 1,  2,    'Philosophy'),
-        ( 2,  2,    'Philosophy'),
-        ( 3,  1,    'Economics'),
-        ( 4,  3,    'Mathematics'),
-        ( 5,  1,    'Economics');
+   INSERT INTO student_records
+       ("student_id", "student_email", "student_name")
+   VALUES
+       ( 1001,           'john.b20@hogwarts.edu',    'John B'),
+       ( 1002,           'sarah.s20@hogwarts.edu',   'Sarah S'),
+       ( 1003,           'martha.l20@hogwarts.edu',  'Martha L'),
+       ( 1004,           'james.g20@hogwarts.edu',   'James G'),
+       ( 1005,           'stanley.p20@hogwarts.edu', 'Stanley P');
+
+   INSERT INTO professor_records
+       ("professor_id", "professor_name")
+   VALUES
+       (2002,   'William C'),
+       (2002,   'William C'),
+       (2001,   'Natalie M'),
+       (2003,   'Mark W'),
+       (2001,   'Natalie M');
+
+   INSERT INTO student_grades
+       ("student_id","professor_id", "subject_id", "grade")
+   VALUES
+       ( 1001, 2002, 2, 'A'),
+       ( 1002, 2002, 2, 'C'),
+       ( 1003, 2001, 1, 'A'),
+       ( 1004, 2003, 3, 'B'),
+       ( 1005, 2003, 1, 'B');
+
+   INSERT INTO subjects
+       ("subject_id", "professor_id", "subject")
+   VALUES
+       ( 1,  2002,    'Philosophy'),
+       ( 2,  2002,    'Philosophy'),
+       ( 3,  2001,    'Economics'),
+       ( 4,  2003,    'Mathematics'),
+       ( 5,  2001,    'Economics');
 
 ---
+
+    SELECT s.student_name, g.grade, sub.subject, p.professor_name AS professor
+    FROM student_records AS s
+    JOIN student_grades AS g
+    ON g.student_id = s.student_id
+    JOIN subjects AS sub
+    ON sub.subject_id = g.subject_id
+    JOIN professor_records AS p
+    ON p.professor_id = sub.professor_id;
+
+| student_name | grade | subject    | professor |
+| ------------ | ----- | ---------- | --------- |
+| John B       | A     | Philosophy | William C |
+| John B       | A     | Philosophy | William C |
+| Sarah S      | C     | Philosophy | William C |
+| Sarah S      | C     | Philosophy | William C |
+| Martha L     | A     | Philosophy | William C |
+| Martha L     | A     | Philosophy | William C |
+| James G      | B     | Economics  | Natalie M |
+| James G      | B     | Economics  | Natalie M |
+| Stanley P    | B     | Philosophy | William C |
+| Stanley P    | B     | Philosophy | William C |
+
+---
+
 
 
 4) In your own words, explain the potential disadvantages of normalizing the data
